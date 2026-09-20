@@ -1,0 +1,73 @@
+services:
+  ovms:
+    image: openvino/model_server:2026.3-gpu
+    user: "${LOCAL_UID}:${LOCAL_GID}"
+
+    devices:
+      - /dev/dxg:/dev/dxg
+
+    volumes:
+      - /usr/lib/wsl:/usr/lib/wsl:ro
+      - ./models:/models:rw
+
+    ports:
+      - "127.0.0.1:8000:8000"
+
+    command:
+      - --rest_port
+      - "8000"
+      - --model_repository_path
+      - /models
+      - --source_model
+      - OpenVINO/Qwen3.5-4B-int4-ov
+      - --model_name
+      - qwen3-5-4b
+      - --task
+      - text_generation
+      - --target_device
+      - GPU
+      - --pipeline_type
+      - VLM_CB
+      - --enable_prefix_caching
+      - "false"
+      - --plugin_config
+      - '{"GPU_ENABLE_LARGE_ALLOCATIONS":"YES"}'
+      - --tool_parser
+      - qwen3coder
+
+    restart: unless-stopped
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:v0.10.2
+
+    ports:
+      - "127.0.0.1:3000:8080"
+
+    volumes:
+      - open-webui-data:/app/backend/data
+
+    environment:
+      - FILE_IMAGE_COMPRESSION_WIDTH=800
+      - FILE_IMAGE_COMPRESSION_HEIGHT=800
+      - ENABLE_TITLE_GENERATION=false
+      - ENABLE_FOLLOW_UP_GENERATION=false
+      - ENABLE_TAGS_GENERATION=false
+      - ENABLE_AUTOCOMPLETE_GENERATION=false
+      - 'DEFAULT_MODEL_METADATA={"capabilities":{"builtin_tools":false}}'
+      - 'DEFAULT_MODEL_PARAMS={"custom_params":{"chat_template_kwargs":{"enable_thinking":false}}}'
+
+    depends_on:
+      - ovms
+
+    restart: unless-stopped
+
+  expense-assistant-mcp:
+    build:
+      context: ./expense-assistant-mcp-server-spring-ai-example
+    ports:
+      - "127.0.0.1:8101:8100"
+    restart: unless-stopped
+
+volumes:
+  open-webui-data:
+
