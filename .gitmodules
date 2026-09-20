@@ -1,0 +1,3 @@
+[submodule "expense-assistant-mcp-server-spring-ai-example"]
+	path = expense-assistant-mcp-server-spring-ai-example
+	url = https://github.com/tanakari/expense-assistant-mcp-server-spring-ai-example.git
