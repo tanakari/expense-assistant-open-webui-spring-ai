@@ -30,8 +30,6 @@ services:
       - VLM_CB
       - --enable_prefix_caching
       - "false"
-      - --plugin_config
-      - '{"GPU_ENABLE_LARGE_ALLOCATIONS":"YES"}'
       - --tool_parser
       - qwen3coder
 
