@@ -1,6 +1,6 @@
 services:
   ovms:
-    image: openvino/model_server:2026.3-gpu
+    image: openvino/model_server:2026.4.0-gpu
     user: "${LOCAL_UID}:${LOCAL_GID}"
 
     devices:
@@ -38,7 +38,7 @@ services:
     restart: unless-stopped
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.10.2
+    image: ghcr.io/open-webui/open-webui:v0.11.3
 
     ports:
       - "127.0.0.1:3000:8080"
