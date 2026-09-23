@@ -19,9 +19,9 @@ services:
       - --model_repository_path
       - /models
       - --source_model
-      - OpenVINO/Qwen3.5-4B-int4-ov
+      - OpenVINO/Qwen3.5-9B-int4-ov
       - --model_name
-      - qwen3-5-4b
+      - qwen3-5-9b
       - --task
       - text_generation
       - --target_device
