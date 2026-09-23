@@ -54,8 +54,8 @@ services:
       - 'DEFAULT_MODEL_METADATA={"capabilities":{"builtin_tools":false}}'
       - 'DEFAULT_MODEL_PARAMS={"custom_params":{"chat_template_kwargs":{"enable_thinking":false}}}'
       - OPENAI_API_BASE_URL=http://ovms:8000/v3
-      - 'TOOL_SERVER_CONNECTIONS=[{"type":"mcp","url":"http://expense-assistant-mcp:8100/mcp","auth_type":"none","key":"","config":{"enable":true},"info":{"id":"expense_assistant_mcp","name":"EexpenseAssistantMCP","description":"経費処理用MCPサーバー"}}]'
-      - 'DEFAULT_INTERFACE_SETTINGS={"system":"経費科目の判定や経費登録に関する依頼を受けた場合は、必ず最初に EexpenseAssistantMCP の get_expense_processing_workflow を呼び出してください。"}'
+      - 'TOOL_SERVER_CONNECTIONS=[{"type":"mcp","url":"http://expense-assistant-mcp:8100/mcp","auth_type":"none","key":"","config":{"enable":true},"info":{"id":"expense_assistant_mcp","name":"ExpenseAssistantMCP","description":"経費処理用MCPサーバー"}}]'
+      - 'DEFAULT_INTERFACE_SETTINGS={"system":"経費科目の判定や経費登録に関する依頼を受けた場合は、必ず最初に ExpenseAssistantMCP の get_expense_processing_workflow を呼び出し、必ずこのフローを遵守してください。"}'
 
     depends_on:
       - ovms
